@@ -1,0 +1,24 @@
+services:
+  logger:
+    class: Monolog\Logger
+    arguments:
+      name: pdepend-analyzer
+    calls:
+        - [ pushHandler, [ @monolog_handler.standard ] ]
+  monolog_handler.standard:
+    class:  Monolog\Handler\StreamHandler
+    arguments:
+        stream: 'php://stdout'
+        level:  100
+  analyzer:
+    class: Geshan\Pdepend\Service\Analyzer
+    arguments:
+      parser: @parser
+  parser:
+    class: SebastianBergmann\PDEPEND\Process\Parser
+  table:
+    class: Symfony\Component\Console\Helper\Table
+    arguments:
+      outputInterface: @outputInterface
+  outputInterface:
+     class: Symfony\Component\Console\Output\OutputInterface

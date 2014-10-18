@@ -1,0 +1,28 @@
+{
+	"require": {
+		"php": ">=5.4.0",
+        "symfony/console": "2.5.5",
+        "symfony/finder": "2.5.5",
+        "symfony/dependency-injection": "2.5.5",
+        "symfony/config": "2.5.5",
+        "symfony/yaml": "2.5.5",
+        "pdepend/pdepend" : "2.0.3",
+        "sebastian/pdepend-process": "1.0.*@dev",
+        "monolog/monolog": "*"
+	},
+	"require-dev":{
+        "phpunit/phpunit": "4.3.3"
+	},
+    "authors": [
+        {
+            "name": "Geshan Manandhar",
+            "email": "geshan@gmail.com"
+        }
+    ],
+	"autoload":{
+		"psr-4":{
+			"Geshan\\":"src/",
+			"tests\\":"tests/"
+		}
+	}
+}
