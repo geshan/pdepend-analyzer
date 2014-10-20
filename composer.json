@@ -27,5 +27,8 @@
 			"Geshan\\":"src/",
 			"tests\\":"tests/"
 		}
-	}
+	},
+    "bin": [
+        "pdepend-analyze"
+    ]
 }
