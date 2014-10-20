@@ -15,6 +15,8 @@ class AnalyzerCommand extends Command
     protected $analyzer;
     protected $logger;
 
+    const MESSAGE_FILE_NOT_PROVIDED   = 'File not provided';
+    const MESSAGE_FILE_NOT_FOUND      = 'File not found';
     const MESSAGE_PASSED              = 'Hurray! There are no methods/functions which exceed ccn or npath limits';
     const MESSAGE_FAILED              = 'There are method(s) which exceed ccn or npath limits';
     const MESSAGE_METRIC_NOT_EXCEEDED = 'There is no method exceeding %s limit.';
@@ -52,10 +54,7 @@ EOT
         $filenameWithPath = $input->getOption('file');
         $exit             = 1;
 
-        if($filenameWithPath === null) {
-            $output->writeln('<error>File not found</error>');
-            exit(2);
-        }
+        $this->validateFile($output, $filenameWithPath);
 
         $output->writeln(sprintf('Executing pdepend summary analyze command with file <info>%s</info>', $filenameWithPath));
         $output->writeln(sprintf('<comment>ccn = Cyclomatic Complexity Number</comment>'));
@@ -81,6 +80,20 @@ EOT
         exit($exit);
     }
 
+    protected function validateFile(OutputInterface $output, $filenameWithPath)
+    {
+        if ($filenameWithPath === null) {
+            $output->writeln(sprintf('<error>%s</error>', self::MESSAGE_FILE_NOT_PROVIDED));
+            exit(2);
+        }
+
+        if (!file_exists($filenameWithPath)) {
+            $output->writeln(sprintf('<error>%s</error>', self::MESSAGE_FILE_NOT_FOUND));
+            exit(2);
+        }
+    }
+
+
     protected function showResultsAsTable(OutputInterface $output, array $methodsExceedingMetricLimit)
     {
         foreach ($methodsExceedingMetricLimit as $metricName => $methods) {
@@ -92,7 +105,7 @@ EOT
                 $output->writeln(sprintf('<error>%s</error>', $message));
 
                 $table   = new Table($output);
-                $table->setHeaders(array('No.', 'Method Name', sprintf('%s metric', $metricName)));
+                $table->setHeaders(array('No.', 'Method Name', sprintf('%s value', $metricName)));
                 $this->addMethodMetricsAsRows($table, $methods);
                 $table->render();
             }
