@@ -40,7 +40,7 @@ in the following ways:
 
 ```shell
 
- ᐅ php app/console pdepend:analyze --file=tests/Pdepend/Fixtures/summary.xml
+ ᐅ ./pdepend-analyze --file=tests/Pdepend/Fixtures/summary.xml
 
 ```
 
@@ -48,7 +48,7 @@ in the following ways:
 
 ```shell
 
- ᐅ php app/console pdepend:analyze --file=tests/Pdepend/Fixtures/summary.xml  --cyclomatic-complexity-limit=2 --npath-complexity-limit=5
+ ᐅ ./pdepend-analyze --file=tests/Pdepend/Fixtures/summary.xml  --cyclomatic-complexity-limit=2 --npath-complexity-limit=5
 
 ```
 
