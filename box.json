@@ -1,0 +1,15 @@
+{
+    "directories": ["src", "vendor"],
+    "compactors": [
+        "Herrera\\Box\\Compactor\\Json",
+        "Herrera\\Box\\Compactor\\Php"
+    ],
+    "compression": "BZ2",
+    "blacklist" : [
+        "vendor/phpunit",
+        "vendor/bin"
+    ],
+    "stub": true,
+    "main": "pdepend-analyze",
+    "output": "pdepend-analyze.phar"
+}
