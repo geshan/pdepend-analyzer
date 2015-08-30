@@ -1,4 +1,4 @@
-# pdepend analyze
+# pdepend analyzer
 
 [![Build Status](https://api.travis-ci.org/geshan/pdepend-analyzer.svg)](https://travis-ci.org/geshan/pdepend-analyzer)
 
