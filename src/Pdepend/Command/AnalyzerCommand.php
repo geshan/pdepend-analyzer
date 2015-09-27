@@ -15,23 +15,23 @@ class AnalyzerCommand extends Command
     protected $analyzer;
     protected $logger;
 
-    const MESSAGE_FILE_NOT_PROVIDED   = 'File not provided';
-    const MESSAGE_FILE_NOT_FOUND      = 'File not found';
-    const MESSAGE_PASSED              = 'Hurray! There are no methods/functions which exceed ccn or npath limits';
-    const MESSAGE_FAILED              = 'There are method(s) which exceed ccn or npath limits';
+    const MESSAGE_FILE_NOT_PROVIDED = 'File not provided';
+    const MESSAGE_FILE_NOT_FOUND = 'File not found';
+    const MESSAGE_PASSED = 'Hurray! There are no methods/functions which exceed ccn or npath limits';
+    const MESSAGE_FAILED = 'There are method(s) which exceed ccn or npath limits';
     const MESSAGE_METRIC_NOT_EXCEEDED = 'There is no method exceeding %s limit.';
-    const MESSAGE_METRIC_EXCEEDED     = 'There are method(s) exceeding %s limit.';
+    const MESSAGE_METRIC_EXCEEDED = 'There are method(s) exceeding %s limit.';
 
     public function __construct(Analyzer $analyzer, LoggerInterface $logger)
     {
         parent::__construct('Summary Analyzer');
 
-        $this->analyzer= $analyzer;
+        $this->analyzer = $analyzer;
         $this->logger = $logger;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -47,12 +47,12 @@ EOT
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $filenameWithPath = $input->getOption('file');
-        $exit             = 1;
+        $exit = 1;
 
         $this->validateFile($output, $filenameWithPath);
 
@@ -63,14 +63,13 @@ EOT
              $filenameWithPath,
              [
                 Analyzer::CYCLOMATIC_COMPLEXITY_NUMBER => $input->getOption('cyclomatic-complexity-limit'),
-                Analyzer::NPATH_COMPLEXITY_NUMBER      => $input->getOption('npath-complexity-limit')
+                Analyzer::NPATH_COMPLEXITY_NUMBER      => $input->getOption('npath-complexity-limit'),
              ]
         );
 
         if ($this->analyzer->checkPassed($methodsExceedingMetricLimit)) {
             $exit = 0;
             $output->writeln(sprintf('<info>%s</info>', self::MESSAGE_PASSED));
-
         } else {
             $output->writeln(sprintf('<error>%s</error>', self::MESSAGE_FAILED));
             $this->showResultsAsTable($output, $methodsExceedingMetricLimit);
@@ -93,7 +92,6 @@ EOT
         }
     }
 
-
     protected function showResultsAsTable(OutputInterface $output, array $methodsExceedingMetricLimit)
     {
         foreach ($methodsExceedingMetricLimit as $metricName => $methods) {
@@ -104,8 +102,8 @@ EOT
                 $message = sprintf(self::MESSAGE_METRIC_EXCEEDED, $metricName);
                 $output->writeln(sprintf('<error>%s</error>', $message));
 
-                $table   = new Table($output);
-                $table->setHeaders(array('No.', 'Method Name', sprintf('%s value', $metricName)));
+                $table = new Table($output);
+                $table->setHeaders(['No.', 'Method Name', sprintf('%s value', $metricName)]);
                 $this->addMethodMetricsAsRows($table, $methods);
                 $table->render();
             }
@@ -116,7 +114,7 @@ EOT
     {
         $counter = 1;
 
-        foreach($methods as $methodRow) {
+        foreach ($methods as $methodRow) {
             array_unshift($methodRow, $counter);
             $table->addRow($methodRow);
             $counter++;

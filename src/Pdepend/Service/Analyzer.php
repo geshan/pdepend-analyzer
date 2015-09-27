@@ -7,10 +7,10 @@ use SebastianBergmann\PDEPEND\Process\Parser;
 class Analyzer
 {
     const CYCLOMATIC_COMPLEXITY_NUMBER = 'ccn';
-    const NPATH_COMPLEXITY_NUMBER      = 'npath';
+    const NPATH_COMPLEXITY_NUMBER = 'npath';
 
     const CYCLOMATIC_COMPLEXITY_LIMIT = 10;
-    const NPATH_COMPLEXITY_LIMIT      = 200;
+    const NPATH_COMPLEXITY_LIMIT = 200;
 
     /**
      * @var \SebastianBergmann\PDEPEND\Process\Parser
@@ -27,7 +27,7 @@ class Analyzer
 
     /**
      * Analyzes the given Pdepend summary xml file and checks if the methods exceed the passed or default metric limit
-     * for Cyclomatic Complexity (ccn) or N-Path Complexity (npath)
+     * for Cyclomatic Complexity (ccn) or N-Path Complexity (npath).
      *
      * @param       $filenameWithPath
      * @param array $metricsToAnalyze
@@ -36,8 +36,8 @@ class Analyzer
      */
     public function analyze($filenameWithPath, array $metricsToAnalyze)
     {
-        $codeMetricsData             = $this->parser->parse($filenameWithPath);
-        $defaultLimits               = $this->getDefaultLimits();
+        $codeMetricsData = $this->parser->parse($filenameWithPath);
+        $defaultLimits = $this->getDefaultLimits();
         $methodsExceedingMetricLimit = [];
 
         foreach ($metricsToAnalyze as $metricName => $metricLimit) {
@@ -74,7 +74,7 @@ class Analyzer
     {
         return [
             self::CYCLOMATIC_COMPLEXITY_NUMBER => self::CYCLOMATIC_COMPLEXITY_LIMIT,
-            self::NPATH_COMPLEXITY_NUMBER      => self::NPATH_COMPLEXITY_LIMIT
+            self::NPATH_COMPLEXITY_NUMBER      => self::NPATH_COMPLEXITY_LIMIT,
         ];
     }
 
@@ -85,7 +85,7 @@ class Analyzer
 
     protected function getMethodNamesExceedingMetricLimit(array $codeMetricsData, $metricName, $metricLimit)
     {
-        $metricWithNumbers               = $this->getMetric($codeMetricsData, $metricName);
+        $metricWithNumbers = $this->getMetric($codeMetricsData, $metricName);
         $methodNamesExceedingMetricLimit = [];
 
         foreach ($metricWithNumbers as $methodName => $metricValue) {

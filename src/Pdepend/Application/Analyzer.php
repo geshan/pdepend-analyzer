@@ -3,10 +3,10 @@
 namespace Geshan\Pdepend\Application;
 
 use Geshan\Pdepend\Command\AnalyzerCommand;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class Analyzer extends Application
@@ -30,7 +30,7 @@ class Analyzer extends Application
      */
     protected function getDefaultCommands()
     {
-        $defaultCommands   = parent::getDefaultCommands();
+        $defaultCommands = parent::getDefaultCommands();
         $defaultCommands[] = $this->getAnalyzerCommand();
 
         return $defaultCommands;
@@ -38,8 +38,8 @@ class Analyzer extends Application
 
     protected function getAnalyzerCommand()
     {
-        $container  = new ContainerBuilder();
-        $loader     = new YamlFileLoader($container, new FileLocator(__DIR__));
+        $container = new ContainerBuilder();
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__));
         $loader->load('Config/services.yml');
 
         return new AnalyzerCommand($container->get('analyzer'), $container->get('logger'));
@@ -56,5 +56,4 @@ class Analyzer extends Application
 
         return $inputDefinition;
     }
-
-} 
+}
