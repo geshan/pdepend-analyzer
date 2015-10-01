@@ -1,0 +1,9 @@
+box: wercker/php
+build:
+  steps:
+    - script:
+        name: install dependencies
+        code: composer install --no-interaction
+    - script:
+        name: PHPUnit tests
+        code: ./vendor/bin/phpunit --configuration phpunit.xml --bootstrap vendor/autoload.php
