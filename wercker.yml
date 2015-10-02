@@ -1,4 +1,6 @@
-box: geshan/php-composer-alpine
+box: 
+  id: geshan/php-composer-alpine
+  cmd: /bin/sh
 
 build:
   steps:
