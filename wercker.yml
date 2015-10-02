@@ -1,4 +1,4 @@
-box: geshan/php-composer-alpine
+box: wercker/php
 
 build:
   steps:
